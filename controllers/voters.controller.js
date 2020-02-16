@@ -5,7 +5,7 @@ const Voter = require('../models/voter.model');
 exports.loadAll = async (req, res) => {
 
   try {
-    // console.log(req.clientIp);
+    console.log(req.ip);
     res.json(await Voter.find());
   } catch(err) {
     res.status(500).json(err);

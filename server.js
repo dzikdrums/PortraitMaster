@@ -7,7 +7,6 @@ const uniqid = require('uniqid');
 const connectToDB = require('./db');
 const requestIp = require('request-ip');
 
-
 // start express server
 const app = express();
 const server = app.listen(process.env.PORT || 8000, () => {
@@ -20,9 +19,11 @@ connectToDB();
 // add middleware
 app.use(cors());
 app.use(requestIp.mw())
-app.use(function(req, res) {
+
+app.use(function(req, res, next) {
   const ip = req.clientIp;
-  res.end(ip);
+  req.ip = ip;
+  next();
 });
 
 app.use(formidable({ uploadDir: './public/uploads/' }, [{
@@ -35,7 +36,6 @@ app.use(formidable({ uploadDir: './public/uploads/' }, [{
 ]));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, '/public')));
