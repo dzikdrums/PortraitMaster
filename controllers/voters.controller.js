@@ -1,16 +1,15 @@
-const Voter = require('../models/voter.model');
+const Voter = require("../models/voter.model");
 
 /****** LOAD ALL VOTERS ********/
 
 exports.loadAll = async (req, res) => {
-
   try {
     console.log(req.ip);
-    res.json(await Voter.find());
-  } catch(err) {
+    res.json("heheszki");
+    // res.json(await Voter.find());
+  } catch (err) {
     res.status(500).json(err);
   }
-
 };
 
 /****** SUBMIT PHOTO ********/
@@ -25,8 +24,8 @@ exports.loadAll = async (req, res) => {
 
 //       const fileName = file.path.split('/').slice(-1)[0]; // cut only filename from full path, e.g. C:/test/abc.jpg -> abc.jpg
 //       const fileExt = fileName.path.split('/').slice(-1)[0]; // cut only file extension from full path
-//       const validFileExtensions = [".jpg", ".jpeg", ".bmp", ".gif", ".png"];    
-      
+//       const validFileExtensions = [".jpg", ".jpeg", ".bmp", ".gif", ".png"];
+
 //       escape = (html) => {
 //         return html.replace(/&/g, "&amp;")
 //                    .replace(/</g, "&lt;")
