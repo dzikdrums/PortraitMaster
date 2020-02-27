@@ -15,23 +15,26 @@ exports.getAll = async (req, res) => {
 
 exports.add = async (req, res) => {
   try {
-    const user = "123451";
+    const user = "STOL";
     const votes = req.params.id;
 
-    const userExists = await Voter.exists({ user: user });
+    const userExists = await Voter.findOne({ user: user });
     if (userExists) {
-      console.log(userExists);
       const photoExists = await Voter.exists({
         $and: [{ user: user }, { votes: votes }]
       });
       if (photoExists) {
-        console.log(userExists);
         return res.json("alredy exists in dbs");
+      } else {
+        userExists.votes.push(votes);
+        userExists.save();
+        return res.json("added vote");
       }
     }
 
     newVoter = new Voter({ user, votes });
     await newVoter.save();
+    console.log("added");
     res.json("added");
   } catch (err) {
     res.status(500).json(err);

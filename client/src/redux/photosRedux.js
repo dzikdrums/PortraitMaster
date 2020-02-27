@@ -79,6 +79,7 @@ export const votePhotoRequest = id => {
       }
       votes.push(id);
       localStorage.setItem("votes", JSON.stringify(votes));
+      dispatch(votePhoto());
     } catch (e) {
       console.error(e);
     }
