@@ -1,12 +1,38 @@
-const Voter = require("../models/voter.model");
+const Voter = require("../models/Voter.model");
 
-/****** LOAD ALL VOTERS ********/
+/****** GET ALL VOTERS ********/
 
-exports.loadAll = async (req, res) => {
+exports.getAll = async (req, res) => {
   try {
     console.log(req.ip);
-    res.json("heheszki");
-    // res.json(await Voter.find());
+    res.json(await Voter.find());
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
+/****** ADD VOTERS IP ********/
+
+exports.add = async (req, res) => {
+  try {
+    const user = "123451";
+    const votes = req.params.id;
+
+    const userExists = await Voter.exists({ user: user });
+    if (userExists) {
+      console.log(userExists);
+      const photoExists = await Voter.exists({
+        $and: [{ user: user }, { votes: votes }]
+      });
+      if (photoExists) {
+        console.log(userExists);
+        return res.json("alredy exists in dbs");
+      }
+    }
+
+    newVoter = new Voter({ user, votes });
+    await newVoter.save();
+    res.json("added");
   } catch (err) {
     res.status(500).json(err);
   }

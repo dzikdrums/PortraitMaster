@@ -68,12 +68,17 @@ export const loadPhotosRequest = () => {
 export const votePhotoRequest = id => {
   return async dispatch => {
     try {
+      const res = await axios.post(`${API_URL}/voters/${id}`);
+
       const votes = JSON.parse(localStorage.getItem("votes")) || [];
       if (votes && votes.indexOf(id) !== -1) return false;
-      await axios.put(`${API_URL}/photos/vote/${id}`);
+
+      if (res === "added") {
+        await axios.put(`${API_URL}/photos/vote/${id}`);
+        dispatch(votePhoto(id));
+      }
       votes.push(id);
       localStorage.setItem("votes", JSON.stringify(votes));
-      dispatch(votePhoto(id));
     } catch (e) {
       console.error(e);
     }

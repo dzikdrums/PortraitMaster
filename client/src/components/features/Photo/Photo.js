@@ -11,7 +11,6 @@ import "./Photo.scss";
 
 const Photo = ({ votePhoto, _id, src, title, author, votes, getVoters }) => {
   const isVoted = id => {
-    console.log("get voters" + getVoters);
     const votes = JSON.parse(localStorage.getItem("votes")) || [];
     return votes && votes.indexOf(id) !== -1;
   };

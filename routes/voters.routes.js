@@ -3,8 +3,8 @@ const router = express.Router();
 
 const voters = require("../controllers/voters.controller");
 
-router.get("/voters", voters.loadAll);
-// router.post("/photos", photos.add);
+router.get("/voters", voters.getAll);
+router.post("/voters/:id", voters.add);
 // router.put("/photos/vote/:id", photos.vote);
 
 module.exports = router;

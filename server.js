@@ -23,21 +23,10 @@ app.use(requestIp.mw());
 app.use(function(req, res, next) {
   const ip = req.clientIp;
   req.ip = ip;
-  console.log(`my IP is: ${req.ip}`);
   next();
 });
 
-app.use(
-  formidable({ uploadDir: "./public/uploads/" }, [
-    {
-      event: "fileBegin", // on every file upload...
-      action: (req, res, next, name, file) => {
-        const fileName = uniqid() + "." + file.name.split(".")[1];
-        file.path = __dirname + "/public/uploads/photo_" + fileName; // ...move the file to public/uploads with unique name
-      }
-    }
-  ])
-);
+// s
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
